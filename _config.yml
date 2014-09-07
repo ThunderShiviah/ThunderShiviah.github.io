@@ -6,8 +6,8 @@ pygments:         true
 permalink:        pretty
 
 # Setup
-title:            Pattern Language
-tagline:          'In search of isomorphisms'
+title:            I am Thunder Shiviah.
+tagline:          
 description:      'Thoughts on math, data, and things'
 url:              https://ThunderShiviah.github.io
 baseurl:          '/'
