@@ -8,7 +8,7 @@ permalink:        pretty
 # Setup
 title:            I am Thunder Shiviah.
 tagline:          
-description:      'Thoughts on math, data, and things'
+description:      'math, data, and connections'
 url:              https://ThunderShiviah.github.io
 baseurl:          '/'
 paginate:         5
