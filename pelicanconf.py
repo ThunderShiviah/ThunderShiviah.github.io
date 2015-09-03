@@ -22,7 +22,8 @@ TIMEZONE = 'Europe/Paris'
 MARKUP = ('md', 'ipynb')
 DEFAULT_LANG = u'en'
 PLUGIN_PATH = './plugins'
-PLUGINS = ['ipynb']
+# PLUGINS = ['ipynb']
+PLUGINS = []
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
