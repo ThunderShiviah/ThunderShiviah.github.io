@@ -1,0 +1,13 @@
+# Site settings
+title: Thunder Shiviah
+email: thunder.shiviah@gmail.com
+description: > # this means to ignore newlines until "baseurl:"
+    A mathemagical place filled with wild algorithms, learning machines, strange and wonderful bugs, and all sorts of other odd abstractions. Come join the data safari!
+
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http:thundershiviah.github.io" # the base hostname & protocol for your site
+twitter_username: tshiviah
+github_username:  thundershiviah
+
+# Build settings
+markdown: kramdown
