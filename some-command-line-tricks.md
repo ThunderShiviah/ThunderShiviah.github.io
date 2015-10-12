@@ -1,4 +1,5 @@
 # Shuffling, symmetric difference, and other GNU tools fun
+# 11 Oct 2015
 
 Today I was working on the [Springleaf Marketing Response data science
 competition](https://www.kaggle.com/c/springleaf-marketing-response) on kaggle
