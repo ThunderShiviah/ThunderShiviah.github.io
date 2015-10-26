@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Thunder Shiviah by ThunderShiviah</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Thunder Shiviah</h1>
+        <p></p>
+
+
+        <p class="view"><a href="https://github.com/ThunderShiviah">View My GitHub Profile</a></p>
+
+      </header>
+      <section>
+   <h1>Shuffling, symmetric difference, and other fun with GNU tools</h1>
+
+<h2>11 Oct 2015</h2>
+
+<p>Today I was working on the <a href="https://www.kaggle.com/c/springleaf-marketing-response">Springleaf Marketing Response data science
+competition</a> on kaggle
+and was having a problem loading the training data (921M) into memory.</p>
+
+<p>The data itself is almost a thousand features (columns) and about 150k lines. This amounts to about 922 megabytes.</p>
+
+<p>Before I could even start doing any exploratory analysis with the data I needed
+a way to make some smaller samples that I could quickly load into memory and
+run some test algorithms and visualizations on.</p>
+
+<p>I decided a good first step to looking at the data would be to randomly sample
+lines using the <code>shuf</code> command (available on linux), which shuffles the
+lines of a file.</p>
+
+<p>Before I could shuffle the file, I needed to remove the first line containing
+the column names. Later, after I shuffle the file, I would then add the column
+names back on.</p>
+
+<p>There are a lot of ways to remove the head (a reasonable way would to just use
+the <code>tail -n +2</code> command which outputs everything from the second line
+onward) but for fun I decided to do it
+using symmetric (set) difference. Symmetric difference is equivalent to the
+union minus the intersection, so all elements contained in one set or the other
+but not both.</p>
+
+<p>One way we can take the set difference of two files is by <a href="https://unix.stackexchange.com/questions/11343/linux-tools-to-treat-files-as-sets-and-perform-set-operations-on-them">sorting both files
+and then filtering based on unique
+lines</a>. The sorting step is necessary so that
+we can use the <code>uniq</code> command. </p>
+
+<p>Hence, set difference of two files can be achieved using</p>
+
+<p><code>
+sort file1 file2 | uniq -u
+</code></p>
+
+<p>(The u flag is for displaying only unique lines.)</p>
+
+<p>Before we can apply this set difference, we still have a few more problems,
+namely:</p>
+
+<ol>
+<li>It's inelegant to make a temporary file of just the first line of the data
+so we can have two files.</li>
+</ol>
+
+<p>In order to get around making a temp file, I can use parentheses (which
+generates a sub-shell).</p>
+
+<p>Ex.
+<code>
+cmd 2 &lt;(cmd 1 file1) file2
+</code>
+means run cmd 2 on file2 and the result of cmd 1 and file1.</p>
+
+<p>So to get the main file stripped of the head we use</p>
+
+<p><code>
+sort &lt;(head -1 datafile) datafile | uniq -u | head -n 1000
+</code>
+which translates to "sort the data file and the first line of the data file and
+then filter out all duplicates (symmetric difference). Finally, take the first
+1000 lines of the shuffled data".</p>
+
+<p>Now I just need to concatenate the column titles  with the first thousand lines of
+the shuffled data. I can do this with another parenthesis subshell.</p>
+
+<p>Ex.
+<code>
+cat &lt;(cmd1 file1; cmd2 file2)
+</code></p>
+
+<p>means "concatenate the result of cmd1 on file1 and the result of cmd2 on file2
+(parallel streams)"</p>
+
+<p>Hence, a command for stripping the first line off a dataset, randomly sampling
+1000 lines and appending the first line back on is</p>
+
+<p><code>
+cat &lt;(head -1 data.csv; sort &lt;(head -1 data.csv) data.csv | uniq -u | shuf| head -n 1000) &gt; raw_short.csv
+</code></p>
+
+<p>To confirm that my command did what I wanted I first checked the number of
+lines</p>
+
+<p><code>
+wc -l raw_short.csv
+</code>
+(this should return 1001 lines since we had 1000 lines and we concatenated the
+head).</p>
+
+<p>Next I checked that the IDs (in column 1) were actually shuffled:
+<code>
+cut -f1 -d"," raw_short.csv | head -n 5
+</code>
+This says "take the first column (f stands for field) deliminated with ',' and
+display the first five lines". This makes sense because the original ids were
+in numeric order.</p>
+
+<p>I then ran this command on my file which was about a gigabyte in size and it
+finished in less than three seconds. Not bad!</p>
+
+
+      </section>
+      <footer>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
