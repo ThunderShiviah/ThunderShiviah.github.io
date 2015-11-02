@@ -3,7 +3,8 @@ layout: default
 ---
 <header class="masthead">        
   <h1 class="masthead-title">
-    <a href="{{ site.baseurl }}/">{{ site.name }}<span>&#39;s blog</span></a>
+  <!--<a href="{{ site.baseurl }}/">{{ site.name }}<span>&#39;s blog</span></a>-->
+    <a href="{{ site.baseurl }}/">{{ site.name }}</a>
   </h1>
   <nav class="masthead-nav">
     {% for nav in site.nav %}
@@ -12,6 +13,7 @@ layout: default
   </nav>
 </header>
 <div class="content list">
+<h2 class="masthead-title">blog</h2>
 {% if site.posts.size == 0 %}
   <h2>No post found</h2>
 {% else %}
