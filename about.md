@@ -1,9 +1,10 @@
 ---
-layout: page
 title: About
 permalink: /about/
 ---
 
-My interests are in data science and engineering, mathematics, and beautiful
-code. Feel free to get [in touch!](mailto:thunder.shiviah@gmail.com)
+<p class="lead"><a href="http://github.com/gfjaru/Kiko">Kiko</a> is a theme for <a href="http://jekyllrb.com">Jekyll</a>, the static site generator.</p>
+
+Kiko is simple, lightweight theme. It's designed and developed by [@gfjaru](https://twitter.com/gfjaru).
+
 
