@@ -8,7 +8,7 @@ categories: GNUtools kaggle shell
 
 Today I was working on the [Springleaf Marketing Response data science
 competition](https://www.kaggle.com/c/springleaf-marketing-response) on kaggle
-and was having a problem loading the training data  into memory.
+and was having a problem loading the training data into memory.
 
 The data itself is almost a thousand features (columns) and about 150k lines.
 All in all it was about 921 megabytes. A little too big to load into pandas in
@@ -82,7 +82,8 @@ Hence, a command for stripping the first line off a dataset, randomly sampling
 1000 lines and appending the first line back on is
 
 ```
-cat <(head -1 data.csv; sort <(head -1 data.csv) data.csv | uniq -u | shuf| head -n 1000) > raw_short.csv ```
+cat <(head -1 data.csv; sort <(head -1 data.csv) data.csv | uniq -u | shuf| head -n 1000) > raw_short.csv 
+```
 
 To confirm that my command did what I wanted I first checked the number of
 lines
