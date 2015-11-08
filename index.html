@@ -3,7 +3,6 @@ layout: default
 ---
 <header class="masthead">        
   <h1 class="masthead-title">
-  <!--<a href="{{ site.baseurl }}/">{{ site.name }}<span>&#39;s blog</span></a>-->
     <a href="{{ site.baseurl }}/">{{ site.name }}</a>
   </h1>
   <nav class="masthead-nav">
@@ -12,6 +11,17 @@ layout: default
     {% endfor %}
   </nav>
 </header>
+<div class="content list">
+<h2 class="masthead-title">talks</h2>
+  <div class="list-item">
+    <h2 class="list-post-title">
+        <a href="{{ site.baseurl }}"+'TechFestNW-Hyperparameter_talk/#/'>Hyperparameter Optimisation
+            <h4>TechFestNW | Portland, OR</h4></a>
+    </h2>
+    <div class="list-post-date">
+      <time>21 AUGUST 2015</time>
+    </div>
+  </div>
 <div class="content list">
 <h2 class="masthead-title">blog</h2>
 {% if site.posts.size == 0 %}
@@ -23,7 +33,7 @@ layout: default
       <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
     </h2>
     <div class="list-post-date">
-      <time>{{ post.date | date_to_string }}</time>
+      <time>{{ post.date | date_to_long_string }}</time>
     </div>
   </div>
 {% endfor %}
